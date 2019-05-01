@@ -13,4 +13,13 @@ public interface ItemService {
 	public List<Item> allItems(HttpServletRequest request);
 	//code 중복 검사를 위한 메소드
 	public Integer codeCheck(HttpServletRequest request);
+	//데이터 삽입을 위한 메소드
+	public int insertItem(HttpServletRequest request);
+	//상세보기를 위한 메소드
+	public Item detailItem(HttpServletRequest request);
+	//데이터 수정을 위한 메소드
+	public int updateItem(HttpServletRequest request);
+	//데이터 삭제를 위한 메소드
+	public int deleteItem(HttpServletRequest request);
+	
 }

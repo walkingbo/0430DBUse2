@@ -22,4 +22,12 @@ public interface ItemDAO {
 	//데이터 삽입을 위한 메소드
 	public int insertItem(Item item);
 	
+	//상세보기를 위한 메소드
+	public Item detailItem(int code);
+	
+	//데이터 수정을 위한 메소드
+	public int updateItem(Item item);
+	
+	//데이터 삭제를 위한 메소드
+	public int deleteItem(int code);
 }

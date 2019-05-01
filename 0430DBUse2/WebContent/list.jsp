@@ -23,7 +23,7 @@
 			<c:forEach var="item" items="${list}">
 				<tr>
 					<td>${item.code}</td>
-					<td>${item.title}</td>
+					<td><a href ="detail.do?code=${item.code}">${item.title}</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>		

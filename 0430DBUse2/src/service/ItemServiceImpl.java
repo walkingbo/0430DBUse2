@@ -66,6 +66,79 @@ public class ItemServiceImpl implements ItemService {
 		
 		return result;
 	}
+
+	@Override
+	public int insertItem(HttpServletRequest request) {
+		int result = -1;
+		//파라미터 읽기
+		String code = request.getParameter("code");
+		String title = request.getParameter("title");
+		String category = request.getParameter("category");
+		String description = request.getParameter("description");
+
+		//DAO메소드의 매개변수를 만들기
+		Item item = new Item();
+		item.setCode(Integer.parseInt(code));
+		item.setTitle(title);
+		item.setCategory(category);
+		item.setDescription(description);
+		
+		//DAO메소드를 호출
+		result=itemDAO.insertItem(item);
+		return result;
+	}
+
+	@Override
+	public Item detailItem(HttpServletRequest request) {
+		Item item = null;
+		//파라미터 읽기
+		String code = request.getParameter("code");
+		//DAO 메소드의 파라미터로 만들기
+		//숫자로 변경할 때 NumberFormatException이 발생하면
+		//파라미터를 만들 때 공백이나 잘못된 이름을 입력했는지 확인
+		int c = Integer.parseInt(code.trim());
+		//DAO메소드를 호출
+		item = itemDAO.detailItem(c);
+		
+		return item;
+	}
+
+	@Override
+	public int updateItem(HttpServletRequest request) {
+		int result = -1;
+		//파라미터 읽기
+		String code = request.getParameter("code");
+		String title = request.getParameter("title");
+		String category = request.getParameter("category");
+		String description = request.getParameter("description");
+
+		//DAO메소드의 매개변수를 만들기
+		Item item = new Item();
+		item.setCode(Integer.parseInt(code));
+		item.setTitle(title);
+		item.setCategory(category);
+		item.setDescription(description);
+		
+		//DAO메소드를 호출
+		//삽입은 0 보다 커야 성공이지만 수정과 삭제는 0보다 크거나 같으면 성공
+		//수정과 삭제는 where 절이 있기 때문에 구문 에러가 엇어도 작업을 하지 않을 수 도 있다.
+		
+		result=itemDAO.updateItem(item);
+		return result;
+	}
+
+	@Override
+	public int deleteItem(HttpServletRequest request) {
+		int result = -1;
+		
+		String code = request.getParameter("code");
+		
+		int c = Integer.parseInt(code);
+		
+		result=itemDAO.deleteItem(c);
+		
+		return result;
+	}
 }
 
 

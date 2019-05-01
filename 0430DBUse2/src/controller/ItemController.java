@@ -81,6 +81,65 @@ public class ItemController extends HttpServlet {
 					request.getRequestDispatcher("codecheck.jsp");
 			dispatcher2.forward(request, response);
 			break;
+		
+		case "create.do":
+			//삽입 요청을 처리
+			int r = itemService.insertItem(request);
+			if(r>0) {
+				//데이터 전체보기로 리다이렉트
+					response.sendRedirect("list.do");
+			}else {
+				//데이터 삽입화면으로 리다이렉트
+				response.sendRedirect("insert.do");
+
+			}
+			break;
+		
+		case "detail.do":
+			Item item = itemService.detailItem(request);
+			//조회를 하고 나면 조회한 데이터를 저장하고 결과 페이지로 포워딩
+			request.setAttribute("item", item);
+			//결과 페이지로 포워딩
+			RequestDispatcher dispatcher3 =
+					request.getRequestDispatcher("detail.jsp");
+			dispatcher3.forward(request, response);
+			break;
+		
+		case "update.do":
+			Item item1 = itemService.detailItem(request);
+			//조회를 하고 나면 조회한 데이터를 저장하고 결과 페이지로 포워딩
+			request.setAttribute("item", item1);
+			//결과 페이지로 포워딩
+			RequestDispatcher dispatcher4 =
+					request.getRequestDispatcher("update.jsp");
+			dispatcher4.forward(request, response);
+			break;
+			
+		case "put.do":
+			int r1 = itemService.updateItem(request);
+			if(r1>=0) {
+				response.sendRedirect("list.do");
+			}else {
+				response.sendRedirect("update.do");
+			}
+			break;
+			
+		case "delete.do":
+			int r2 = itemService.deleteItem(request);
+			if(r2>=0) {
+				//성공했을 때 기존의 요청이 아닌 새로운 요청을 발생
+				response.sendRedirect("deletesuccess.do");
+			}else {
+				response.sendRedirect("delete.do");
+			}
+			break;
+			
+		case "deletesuccess.do":
+			RequestDispatcher dispatcher5 =
+			request.getRequestDispatcher("delete.jsp");
+			dispatcher5.forward(request, response);
+			break;
+			
 		}
 	}
 
